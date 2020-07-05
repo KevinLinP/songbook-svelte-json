@@ -10,6 +10,7 @@ const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 module.exports = {
+	mode,
 	entry: {
 		bundle: ['./src/main.js']
 	},
@@ -20,14 +21,14 @@ module.exports = {
 		extensions: ['.mjs', '.js', '.svelte'],
 		mainFields: ['svelte', 'browser', 'module', 'main']
 	},
-	devServer: {
-		contentBase: './dist',
-		hot: true,
-	},
 	output: {
 		path: __dirname + '/dist',
 		filename: '[name].[hash].js',
-		chunkFilename: '[name].[hash].js',
+		chunkFilename: '[name].[contenthash].js',
+	},
+	devServer: {
+		contentBase: './dist',
+		hot: true,
 	},
 	module: {
 		rules: [
@@ -59,7 +60,6 @@ module.exports = {
 			},
 		]
 	},
-	mode,
 	plugins: [
 		new CleanWebpackPlugin(),
 		new CopyPlugin({
@@ -82,5 +82,11 @@ module.exports = {
 			inlineWorkboxRuntime: false,
 		}),
 	],
+	optimization: {
+		moduleIds: 'hashed',
+		splitChunks: {
+			chunks: 'all',
+		},
+	},
 	devtool: prod ? false: 'source-map',
 };

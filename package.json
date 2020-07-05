@@ -1,6 +1,7 @@
 {
   "name": "h3-songbook",
   "version": "1.0.0",
+  "sideEffects": false,
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.0.3",
