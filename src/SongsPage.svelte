@@ -7,6 +7,8 @@
 
   let songs = {}
   let loading = false
+  let scrollY = 0
+  let songSelectBox = null
   
   onMount(() => {
     setTimeout(() => {
@@ -23,15 +25,21 @@
 
   $: slug = $params.slug
   $: song = songs[slug]
+  $: songSelectTop = songSelectBox ? songSelectBox.getBoundingClientRect().top : null
+  $: backToTopVisible = (scrollY > songSelectTop)
 </script>
 
+<svelte:window bind:scrollY={scrollY}/>
+
 <div class="my-3">
-  <SongSelect {songs}/>
+  <span bind:this={songSelectBox}>
+    <SongSelect {songs}/>
+  </span>
 </div>
 
 {#if slug}
   {#if song}
-    <Song song={song}/>
+    <Song {song} {backToTopVisible}/>
   {:else}
     {#if loading}
       <span class="text-muted" in:fade>Loading ...</span>
