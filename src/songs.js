@@ -5,7 +5,7 @@ async function loadSongs() {
 
     return json
   } catch (err) {
-    console.log(`Error: ${err}`)
+    console.log({err})
     return {}
   }
 }
