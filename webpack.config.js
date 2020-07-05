@@ -1,4 +1,4 @@
-const WorkboxPlugin = require('workbox-webpack-plugin');
+var OfflinePlugin = require('offline-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
@@ -51,8 +51,17 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		}),
-		new WorkboxPlugin.GenerateSW({
-			
+		// it's always better if OfflinePlugin is the last plugin added
+    new OfflinePlugin({
+			appShell: '/index.html',
+			externals: [
+				'/songs.json',
+				'/index.html',
+				'/bundle.css',
+				'/manifest.webmanifest',
+				'/images/icons-512.png',
+				'/images/icons-192.png',
+			],
 		}),
 	],
 	devtool: prod ? false: 'source-map'

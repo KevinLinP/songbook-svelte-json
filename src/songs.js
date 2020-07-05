@@ -1,6 +1,6 @@
 async function loadSongs() {
   try {
-    const response = await fetch('/songs.json')
+    const response = await fetch('/songs.json', {cache: 'default'})
     const json = await response.json()
 
     return json
