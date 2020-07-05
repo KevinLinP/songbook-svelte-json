@@ -1,3 +1,4 @@
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
@@ -49,7 +50,10 @@ module.exports = {
 	plugins: [
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
-		})
+		}),
+		new WorkboxPlugin.GenerateSW({
+			
+		}),
 	],
 	devtool: prod ? false: 'source-map'
 };
