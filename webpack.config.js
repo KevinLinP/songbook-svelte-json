@@ -74,10 +74,12 @@ module.exports = {
 			filename: '[name].css'
 		}),
 		new WorkboxPlugin.GenerateSW({
-			// these options encourage the ServiceWorkers to get in there fast
+			// these 2 options encourage the ServiceWorkers to get in there fast
 			// and not allow any straggling "old" SWs to hang around
 			clientsClaim: true,
 			skipWaiting: true,
+			cleanupOutdatedCaches: true,
+			inlineWorkboxRuntime: false,
 		}),
 	],
 	devtool: prod ? false: 'source-map',
