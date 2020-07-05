@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './main.scss';
 import { routes } from 'svelte-hash-router';
 import App from './App.svelte';
 import SongsPage from './SongsPage.svelte';
@@ -14,6 +14,7 @@ const app = new App({
 
 export default app;
 
+/// #if process.env.NODE_ENV && process.env.NODE_ENV.match(/prod/i)
 if ('serviceWorker' in navigator) {
 	window.addEventListener('load', () => {
 		navigator.serviceWorker.register('/service-worker.js').then(registration => {
@@ -23,3 +24,4 @@ if ('serviceWorker' in navigator) {
 		});
 	});
 }
+/// #endif

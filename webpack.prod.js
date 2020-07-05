@@ -3,6 +3,7 @@ const common = require('./webpack.common.js');
 const TerserPlugin = require('terser-webpack-plugin');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 // const ClosurePlugin = require('closure-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
@@ -25,6 +26,9 @@ module.exports = merge(common, {
       new TerserPlugin(),
       // new UglifyJsPlugin(),
       // new ClosurePlugin({mode: 'STANDARD'}, {})
+      new OptimizeCssAssetsPlugin({
+        cssProcessor: require('cssnano'),
+      }),
     ],
   }
 });
