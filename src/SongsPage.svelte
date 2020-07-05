@@ -1,17 +1,25 @@
 <script>
+  import { onMount } from 'svelte'
   import { fade } from 'svelte/transition';
   import SongSelect from './SongSelect.svelte'
   import Song from './Song.svelte'
   import { params } from 'svelte-hash-router'
-  import loadSongs from './songs'
 
   let songs = {}
   let loading = false
+  
+  onMount(() => {
+    setTimeout(() => {
+      loading = true
+    }, 250)
+  })
 
-  async function init() {
-    songs = await loadSongs()
+  async function loadSongs() {
+    const { default: loadedSongs } = await import(/* webpackChunkName: "songs" */ /* webpackPreload: true */ './songs.json')
+    songs = loadedSongs
+    loading = false
   }
-  init()
+  loadSongs()
 
   $: slug = $params.slug
   $: song = songs[slug]
@@ -26,7 +34,7 @@
     <Song song={song}/>
   {:else}
     {#if loading}
-      <span class="text-muted" in:fade>loading ...</span>
+      <span class="text-muted" in:fade>Loading ...</span>
     {/if}
   {/if}
 {:else}
