@@ -18,11 +18,15 @@ songsJson = _.reduce(songsJson, (acc, song) => {
   return acc
 }, {})
 
-fs.writeFileSync('public/songs.json', JSON.stringify(songsJson));
+console.log(songsJson)
+fs.writeFileSync('src/songs.json', JSON.stringify(songsJson));
 
 function transformSong(song) {
-  song.mainContentHtml = converter.makeHtml(song.mainContentMarkdown)
+  song.mainContentPlain = song.mainContentMarkdown.replace(/  $/gm, '')
   song.slug = slug(song)
+  _.assign(song, song.metadata)
+  delete song.metadata
+  delete song.keywords
   delete song.mainContentMarkdown
 }
 
