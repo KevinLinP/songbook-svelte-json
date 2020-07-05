@@ -1,5 +1,4 @@
 <script>
-  import _ from 'lodash'
   import Select from 'svelte-select'
   
   export let songs
@@ -33,9 +32,8 @@
 
   let selectedValue = null;
 
-  $: if (_.keys(songs).length > 0) {
-    let songOptions = _.values(songs)
-    songOptions = _.sortBy(songOptions, ['title'])
+  $: if (Object.keys(songs).length > 0) {
+    let songOptions = Object.values(songs)
     selectOptions = staticOptions.concat(songOptions)
   }
 

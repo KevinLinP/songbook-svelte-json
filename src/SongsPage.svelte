@@ -1,5 +1,4 @@
 <script>
-  import _ from 'lodash'
   import { fade } from 'svelte/transition';
   import SongSelect from './SongSelect.svelte'
   import Song from './Song.svelte'
