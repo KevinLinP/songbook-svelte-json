@@ -26,6 +26,7 @@ module.exports = {
 	output: {
 		path: __dirname + '/dist',
 		filename: '[name].[hash].js',
+		chunkFilename: '[name].[hash].js',
 	},
 	module: {
 		rules: [
