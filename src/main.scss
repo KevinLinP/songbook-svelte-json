@@ -1,3 +1,5 @@
+$font-size-base: 1.5rem;
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
@@ -8,6 +10,16 @@
 @import "~bootstrap/scss/type";
 @import "~bootstrap/scss/containers";
 // @import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/buttons";
 
 // @import "~bootstrap/scss/helpers";
 @import "~bootstrap/scss/utilities/api";
+
+// svelte-select override
+.listItem .item {
+  @include font-size(1.2rem);
+}
+
+.text-song {
+  @include font-size(2rem);
+}

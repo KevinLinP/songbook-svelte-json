@@ -39,9 +39,12 @@
   {/if}
 {:else}
   <header class="mt-4 mb-4">
-    <h1 class="display-5">Hash House Harriers Songbook</h1>
+    <h1 class="display-3">Hash House Harriers Songbook</h1>
   </header>
 
-  <p class="mb-5">Search to begin.</p>
-  <p class="text-muted">Add this page to your homescreen and your phone will try to remember the songs for a few days.</p>
+  <div class="mb-4">
+    <small>Search to begin.</small>
+  </div>
+
+  <small class="text-muted">Add this page to your homescreen and your phone will try to remember the songs for a few days.</small>
 {/if}
