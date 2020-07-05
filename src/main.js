@@ -1,7 +1,7 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { routes } from 'svelte-hash-router'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { routes } from 'svelte-hash-router';
 import App from './App.svelte';
-import SongsPage from './SongsPage.svelte'
+import SongsPage from './SongsPage.svelte';
 
 routes.set({
 	'/': SongsPage,

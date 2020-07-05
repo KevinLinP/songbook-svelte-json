@@ -1,16 +1,15 @@
-// var OfflinePlugin = require('offline-plugin');
+// this config assumes the host is doing the minifying
+
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
 const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
 module.exports = {
-	mode,
 	entry: {
 		bundle: ['./src/main.js']
 	},
@@ -26,10 +25,6 @@ module.exports = {
 		filename: '[name].[hash].js',
 		chunkFilename: '[name].[contenthash].js',
 	},
-	devServer: {
-		contentBase: './dist',
-		hot: true,
-	},
 	module: {
 		rules: [
 			{
@@ -38,6 +33,7 @@ module.exports = {
 					loader: 'svelte-loader',
 					options: {
 						emitCss: true,
+						hotReload: !prod,
 					}
 				}
 			},
@@ -73,14 +69,6 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			filename: '[name].css'
 		}),
-		new WorkboxPlugin.GenerateSW({
-			// these 2 options encourage the ServiceWorkers to get in there fast
-			// and not allow any straggling "old" SWs to hang around
-			clientsClaim: true,
-			skipWaiting: true,
-			cleanupOutdatedCaches: true,
-			inlineWorkboxRuntime: false,
-		}),
 	],
 	optimization: {
 		moduleIds: 'hashed',
@@ -88,5 +76,4 @@ module.exports = {
 			chunks: 'all',
 		},
 	},
-	devtool: prod ? false: 'source-map',
 };
