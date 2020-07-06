@@ -7,6 +7,6 @@ module.exports = merge(common, {
   devServer: {
     host: '0.0.0.0',
     contentBase: './dist',
-		// hot: true,
+		hot: false, // using MiniCssExtractPlugin and PurgeCSSPlugin
   },
 });

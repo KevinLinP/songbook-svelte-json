@@ -1,10 +1,11 @@
-// this config assumes the host is doing the minifying
+const path = require('path');
+const glob = require('glob-all')
+const PurgeCSSPlugin = require('purgecss-webpack-plugin')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
-const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
@@ -48,14 +49,14 @@ module.exports = {
 					 * MiniCssExtractPlugin doesn't support HMR.
 					 * For developing, use 'style-loader' instead.
 					 * */
-					prod ? MiniCssExtractPlugin.loader : 'style-loader',
+					MiniCssExtractPlugin.loader,
 					'css-loader',
 				]
 			},
 			{
 				test: /\.s[ac]ss$/i,
 				use: [
-					prod ? MiniCssExtractPlugin.loader : 'style-loader',
+					MiniCssExtractPlugin.loader,
 					'css-loader',
 					{
 						loader: 'postcss-loader', // Run postcss actions
@@ -98,6 +99,12 @@ module.exports = {
 			filename: '[name].css',
 			filename: '[name].[hash].css',
 		}),
+		new PurgeCSSPlugin({
+      paths: glob.sync([
+				`${path.join(__dirname, 'src')}/**/*`,
+				`${path.join(__dirname, 'node_modules', 'svelte-select')}/**/*`, // TODO: could be more eff.
+			], { nodir: true }),
+    }),
 	],
 	optimization: {
 		moduleIds: 'hashed',
