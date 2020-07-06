@@ -9,6 +9,7 @@
   let loading = false
   let scrollY = 0
   let songSelectBox = null
+  let showPrivacyPolicy = false
   
   onMount(() => {
     setTimeout(() => {
@@ -22,6 +23,10 @@
     loading = false
   }
   loadSongs()
+
+  function privacyPolicyClicked() {
+    showPrivacyPolicy = true
+  }
 
   $: slug = $params.slug
   $: song = songs[slug]
@@ -55,4 +60,15 @@
   </div>
 
   <small class="text-muted">Add this page to your homescreen and your phone will try to remember the songs for a few days.</small>
+
+  <div class="mt-5 text-muted text-tiny">
+    {#if showPrivacyPolicy}
+      Privacy Policy: This site doesn't track shit. Be free.
+    {:else}
+      <!-- svelte-ignore a11y-missing-attribute -->
+      <a class="text-muted text-tiny" role="button" on:click={privacyPolicyClicked}>
+        Privacy Policy
+      </a>
+    {/if}
+  </div>
 {/if}

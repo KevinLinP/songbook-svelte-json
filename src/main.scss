@@ -30,3 +30,7 @@ $font-size-base: 1.5rem;
     @include rfs(1rem, min-height);
   }
 }
+
+.text-tiny {
+  @include font-size(0.8rem);
+}
